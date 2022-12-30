@@ -18,22 +18,32 @@ const client = new MongoClient(uri, {
   serverApi: ServerApiVersion.v1,
 });
 
-// async function run() {
-//   try {
-//     // const categoryCollection = client.db("gearUP").collection("categories");
+async function run() {
+  try {
+    const aboutMeCollection = client.db("InstaTown").collection("AboutMe");
 
-//     // app.get("/users", async (req, res) => {
-//     //   const query = {};
-//     //   const cursor = userCollection.find(query);
-//     //   const users = await cursor.toArray();
-//     //   res.send(users);
-//     // });
+    app.get("/about", async (req, res) => {
+      const query = {};
+      const cursor = aboutMeCollection.find(query);
+      const about = await cursor.toArray();
+      res.send(about);
+    });
+
+    // app.get('/about/update/:id', async (req, res) => {
+    //   const id = req.params.id;
+    //   const query = { _id: ObjectId(id) };
+    //   const about = await aboutMeCollection.findOne(query);
+    //   console.log('inside update',about)
+    //   res.send(about);
+    // });
+
     
-//   } finally {
-//   }
-// }
+  } finally {
+    
+  }
+}
 
-// run().catch((err) => console.error(err));
+run().catch((err) => console.error(err));
 
 app.get("/", (req, res) => {
   res.send("Instatown server is running");
